@@ -1,0 +1,27 @@
+{
+  "name": "generation-take-home-backend",
+  "version": "1.0.0",
+  "description": "Backend to get the stores for the challange",
+  "main": "index.js",
+  "scripts": {
+    "heroku-postbuild": "npm run clean && npm run build",
+    "clean": "rm -rf build && mkdir build",
+    "build": "./node_modules/.bin/babel src -d build",
+    "start": "node ./build/index.js",
+    "start:dev": "npm run clean && npm run build && node ./build/index.js",
+    "dev": "./node_modules/.bin/nodemon --ignore 'build/*' -x npm run start:dev"
+  },
+  "author": "Victor Huerta <vhuertahnz@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-env": "^2.4.1",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.4",
+    "redis": "^2.7.1",
+    "request-promise": "^4.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
