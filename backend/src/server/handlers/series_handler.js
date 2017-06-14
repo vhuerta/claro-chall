@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Stores Handler, methods for ping routes
+ * Series handler
  *
  * @author Victor Huerta <vhuertahnz@gmail.com>
  */
