@@ -1,7 +1,7 @@
 {
-  "name": "generation-take-home-backend",
+  "name": "claro-chall-backend",
   "version": "1.0.0",
-  "description": "Backend to get the stores for the challange",
+  "description": "Backend to get the series for the challange",
   "main": "index.js",
   "scripts": {
     "heroku-postbuild": "npm run clean && npm run build",
