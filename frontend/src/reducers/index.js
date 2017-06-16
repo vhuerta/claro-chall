@@ -1,8 +1,6 @@
 import typeToReducer from "type-to-reducer";
 
-import { FETCH_SEASONS } from "../actions";
-
-export const SET_FILTER = "SET_FILTER";
+import { FETCH_SEASONS, SET_FILTER } from "../actions";
 
 const initialState = {
   filter: "",
@@ -12,7 +10,7 @@ const initialState = {
   selectedChapter: null
 };
 
-const setFilter = (state, { filter }) => ({ ...state, filter });
+const setFilter = (state, { payload }) => ({ ...state, filter: payload });
 
 const fetchSeriesPending = state => {
   return { ...state, loading: true };
@@ -34,6 +32,7 @@ const fetchSeriesSuccess = (state, { payload }) => {
       re.seasons.byId[s.id] = { ...s };
       re.seasons.allIds.push(s.id);
       re.seasons.byId[s.id].episodes = s.episodes.map(e => {
+        e.season = s.id;
         re.episodes.byId[e.id] = { ...e };
         re.episodes.allIds.push(e.id);
         return e.id;

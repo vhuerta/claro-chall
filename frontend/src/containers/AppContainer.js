@@ -12,14 +12,15 @@ const AppContainer = createReactClass({
   },
 
   render() {
-    console.log(this.props.seasons);
     return <App {...this.props} />;
   }
 });
 
 const mapStateToProps = (state, props) => {
   return {
-    seasons: getVisibleSeasons(state, state.filter)
+    seasons: state.seasons.byId,
+    episodes: state.episodes.byId,
+    visibleSeasons: filterAllSeasonsFast(state.episodes, state.filter)
   };
 };
 
@@ -27,21 +28,67 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     fetchSeasons() {
       dispatch(actions.fetchSeasons());
+    },
+    handleFilterChange(filter) {
+      dispatch(actions.setFilter(filter));
     }
   };
 };
 
-const getAllSeasons = seasons => seasons.allIds.map(id => seasons.byId[id]);
-const getAllEpisodes = (ids, episodes) => ids.map(id => episodes.byId[id]);
+/**
+ * Filter all the episodes by name and descriptions
+ */
+const filterAllSeasonsFast = (episodes, filter) => {
+  let result = {};
 
-const getVisibleSeasons = (state, filter) => {
-  // TODO: Filter episodes and remove empty seasons
-  const allSeasons = getAllSeasons(state.seasons).map(
-    s => ((s.episodes = getAllEpisodes(s.episodes, state.episodes)), s)
+  const search = new RegExp(
+    filter
+      .replace("a", "[áa]")
+      .replace("e", "[ée]")
+      .replace("i", "[íi]")
+      .replace("o", "[óo]")
+      .replace("u", "[úu]")
+      .replace("A", "[ÁA]")
+      .replace("E", "[ÉE]")
+      .replace("I", "[ÍI]")
+      .replace("O", "[ÓO]")
+      .replace("U", "[ÚU]"),
+    "gi"
   );
 
-  return [...allSeasons];
+  for (let i = 0, len = episodes.allIds.length; i < len; ++i) {
+    const id = episodes.allIds[i];
+    const episode = episodes.byId[id];
+    if (
+      search.test(episode.title_episode) ||
+      search.test(episode.description) ||
+      search.test(episode.description_large)
+    ) {
+      result[episode.season] = result[episode.season] || [];
+      result[episode.season] = result[episode.season].concat(episode);
+    }
+  }
+  return result;
 };
+
+/**
+ * Cleanest way but not so fast
+ * 
+ * @deprecated
+ */
+const filterAllSeasons = (seasons, episodes, filter) =>
+  seasons.allIds.reduce((arr, id) => {
+    const season = seasons.byId[id];
+    const search = new RegExp(filter, "gi");
+    season.episodes = season.episodes.reduce((arr, e) => {
+      const episode = episodes.byId[e];
+      return search.test(episode.description) ||
+        search.test(episode.description_large)
+        ? arr.concat(episode)
+        : arr;
+    }, []);
+    return season.episodes.length ? arr.concat(season) : arr;
+  }, []);
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(AppContainer)
