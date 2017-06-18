@@ -22,7 +22,6 @@ const AppContainer = createReactClass({
   },
 
   render() {
-    console.log(this.props);
     return <App {...this.props} />;
   }
 });

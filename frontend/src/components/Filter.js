@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 
 const Filter = ({ handleFilterChange }) => {
   return (
-    <div className="column">
+    <div className="column columns">
       <div className="column is-one-third is-offset-one-third">
 
         <div className="field">
@@ -28,6 +28,15 @@ const Filter = ({ handleFilterChange }) => {
           </p>
         </div>
 
+      </div>
+      <div className="column is-one-third">
+        <a
+          className="button is-success is-outlined"
+          target="__blank"
+          href="https://github.com/vhuerta/claro-chall"
+        >
+          Codigo fuente
+        </a>
       </div>
     </div>
   );

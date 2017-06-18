@@ -37,7 +37,7 @@ export const normalizePayload = payload => {
  */
 export const fetchData = gid => {
   const url = process.env.NODE_ENV === "production"
-    ? "http://localhost:3000/series?gId="
+    ? "https://claro-chall.herokuapp.com/series?gId="
     : "http://localhost:3000/series?gId=";
 
   return axios.get(url + gid).then(res => res.data);

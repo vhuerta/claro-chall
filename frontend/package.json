@@ -2,6 +2,7 @@
   "name": "claro-chall-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://vhuerta.github.io/clarovideo/",
   "author": "Victor Huerta <vhuertahnz@gmail.com>",
   "license": "ISC",
   "dependencies": {
