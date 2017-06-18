@@ -1,0 +1,68 @@
+html,
+body {
+  background-color: #000000;
+}
+
+.input {
+  background: #0f0f0f !important;
+  color: #ffffff !important;
+}
+
+.input:active,
+.input:focus {
+  border-color: #c50015 !important;
+  background: #0f0f0f !important;
+  color: #ffffff;
+}
+
+div.section {
+  background: #000000;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+div.season .title {
+  color: #fff;
+  font-weight: 700;
+}
+
+div.card.episode {
+  background: none;
+  background-size: cover;
+  color: #fff;
+  cursor: pointer;
+}
+
+div.card.episode figcaption {
+  position: absolute;
+  padding: 0 5px 0 5px;
+  bottom: 10px;
+  left: 15px;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+div.card.episode:hover figcaption {
+  display: none;
+}
+
+div.card.episode .card-content {
+  top: 0px;
+  left: -5px;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.75);
+  display: none;
+  height: 100%;
+}
+
+div.card.episode .card-content .title {
+  margin-bottom: .5rem;
+}
+
+div.card.episode .card-content .content {
+  margin-bottom: .5rem;
+  color: #ffffff;
+}
+
+div.card.episode:hover .card-content {
+  display: block;
+}

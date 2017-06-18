@@ -1,41 +1,45 @@
+/**
+ * Functional component to render the app
+ * 
+ * @author Victor Huerta <vhuertahnz@gmail.com>
+ */
+
 import React from "react";
+import PropTypes from "prop-types";
 
-export default ({ seasons, episodes, visibleSeasons, handleFilterChange }) => {
-  const renderSeasons = ss =>
-    Object.keys(ss)
-      .sort((a, b) => parseInt(seasons[a].number) - parseInt(seasons[b].number))
-      .map(renderSeason);
+import Filter from "./Filter";
+import Season from "./Season";
 
-  const renderSeason = (s, index, ss) => (
-    <div key={s}>
-      {seasons[s].title}
-      {renderEpisodes(visibleSeasons[s])}
-      <hr />
-    </div>
-  );
+const App = ({ seasons, episodes, visibleSeasons, handleFilterChange }) => {
+  const sortedSeasons = visibleSeasons =>
+    Object.keys(visibleSeasons).sort(
+      (id1, id2) => +seasons[id1].number - +seasons[id2].number
+    );
 
-  const renderEpisodes = episodes => (
-    <div>
-      {episodes.map(renderEpisode)}
-    </div>
-  );
-
-  const renderEpisode = episode => (
-    <div key={episode.id}>
-      {episode.title_episode}
-    </div>
-  );
-
-  let input;
+  const renderSeasons = visibleSeasons =>
+    sortedSeasons(visibleSeasons).map(id => (
+      <div className="section" key={id}>
+        <Season
+          season={seasons[id]}
+          episodes={episodes}
+          episodesIds={visibleSeasons[id]}
+        />
+      </div>
+    ));
 
   return (
     <div>
-      <input
-        ref={n => input = n}
-        onChange={() => handleFilterChange(input.value)}
-      />
+      <Filter handleFilterChange={handleFilterChange} />
       {renderSeasons(visibleSeasons)}
-
     </div>
   );
 };
+
+App.propTypes = {
+  seasons: PropTypes.object.isRequired,
+  episodes: PropTypes.object.isRequired,
+  visibleSeasons: PropTypes.object.isRequired,
+  handleFilterChange: PropTypes.func.isRequired
+};
+
+export default App;

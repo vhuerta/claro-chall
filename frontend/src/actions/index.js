@@ -1,6 +1,10 @@
-import axios from "axios";
+/**
+ * App actions
+ * 
+ * @author Victor Huerta <vhuertahnz@gmail.com>
+ */
 
-const url = "http://localhost:3000/series?gId=";
+import { fetchData } from "./../util/seasons_util";
 
 export const FETCH_SEASONS = "FETCH_SEASONS";
 export const SET_FILTER = "SET_FILTER";
@@ -10,7 +14,7 @@ export default {
     return dispatch =>
       dispatch({
         type: FETCH_SEASONS,
-        payload: axios.get(url + gid).then(res => res.data)
+        payload: fetchData(gid)
       });
   },
   setFilter(filter) {
