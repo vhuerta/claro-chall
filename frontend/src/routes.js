@@ -6,7 +6,7 @@ import AppContainer from "./containers/AppContainer";
 const Routes = () => (
   <Router>
     <Switch>
-      <Route path="/" component={AppContainer} />
+      <Route path="/:id?" component={AppContainer} />
     </Switch>
   </Router>
 );

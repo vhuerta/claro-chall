@@ -17,15 +17,21 @@ const App = ({ seasons, episodes, visibleSeasons, handleFilterChange }) => {
     );
 
   const renderSeasons = visibleSeasons =>
-    sortedSeasons(visibleSeasons).map(id => (
-      <div className="section" key={id}>
-        <Season
-          season={seasons[id]}
-          episodes={episodes}
-          episodesIds={visibleSeasons[id]}
-        />
-      </div>
-    ));
+    (Object.keys(visibleSeasons).length
+      ? sortedSeasons(visibleSeasons).map(id => (
+          <div className="section" key={id}>
+            <Season
+              season={seasons[id]}
+              episodes={episodes}
+              episodesIds={visibleSeasons[id]}
+            />
+          </div>
+        ))
+      : <div className="section">
+          <div className="notification is-warning">
+            No se encontraron resultados
+          </div>
+        </div>);
 
   return (
     <div>

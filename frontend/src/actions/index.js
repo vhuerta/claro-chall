@@ -10,7 +10,7 @@ export const FETCH_SEASONS = "FETCH_SEASONS";
 export const SET_FILTER = "SET_FILTER";
 
 export default {
-  fetchSeasons(gid = 544242) {
+  fetchSeasons(gid = "?gId=544242") {
     return dispatch =>
       dispatch({
         type: FETCH_SEASONS,

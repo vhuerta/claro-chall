@@ -18,7 +18,7 @@ import actions from "../actions";
  */
 const AppContainer = createReactClass({
   componentDidMount() {
-    this.props.fetchSeasons();
+    this.props.fetchSeasons(this.props.location.search);
   },
 
   render() {
@@ -42,8 +42,8 @@ const mapStateToProps = (state, props) => {
  */
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    fetchSeasons() {
-      dispatch(actions.fetchSeasons());
+    fetchSeasons(query) {
+      dispatch(actions.fetchSeasons(query));
     },
     handleFilterChange(filter) {
       dispatch(actions.setFilter(filter));

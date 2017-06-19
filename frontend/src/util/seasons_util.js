@@ -37,9 +37,9 @@ export const normalizePayload = payload => {
  */
 export const fetchData = gid => {
   const url = process.env.NODE_ENV === "production"
-    ? "https://claro-chall.herokuapp.com/series?gId="
-    : "http://localhost:3000/series?gId=";
-
+    ? "https://claro-chall.herokuapp.com/series"
+    : "http://localhost:3000/series";
+  gid = gid || "?gId=544242";
   return axios.get(url + gid).then(res => res.data);
 };
 
@@ -69,9 +69,8 @@ export const filterAllSeasonsFast = (episodes, filter) => {
     const id = episodes.allIds[i];
     const episode = episodes.byId[id];
     if (
-      search.test(episode.title_episode) ||
-      search.test(episode.description) ||
-      search.test(episode.description_large)
+      search.test(episode.title_episode) || search.test(episode.description)
+      //||search.test(episode.description_large)
     ) {
       result[episode.season] = result[episode.season] || [];
       result[episode.season] = result[episode.season].concat(episode.id);

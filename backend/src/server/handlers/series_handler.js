@@ -32,7 +32,7 @@ const getFromEndpoint = gId => {
  * Handler to get the series
  */
 export const GET_SERIES = (req, res, next) => {
-  const gId = req.query.gId;
+  const gId = req.query.gId || req.query.gid;
 
   if (!gId) {
     res.out({

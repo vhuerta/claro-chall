@@ -46,7 +46,7 @@ var getFromEndpoint = function getFromEndpoint(gId) {
  * Handler to get the series
  */
 var GET_SERIES = exports.GET_SERIES = function GET_SERIES(req, res, next) {
-  var gId = req.query.gId;
+  var gId = req.query.gId || req.query.gid;
 
   if (!gId) {
     res.out({
